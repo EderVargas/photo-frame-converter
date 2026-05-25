@@ -1,0 +1,21 @@
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Carpetas de trabajo (imágenes locales, no van al repo)
+imagenes/
+convertidas/
+convertir/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# VS Code
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
