@@ -28,22 +28,76 @@ Al final muestra un resumen: cuántas se convirtieron, cuántas fallaron y dónd
 ## Uso
 
 ```bash
-# Instalar dependencia
 pip install pillow
-
-# Uso básico (lee de ./imagenes, guarda en ./convertidas)
-python convertir.py
-
-# Con carpetas específicas
-python convertir.py ruta/entrada ruta/salida
 ```
 
-O si tenés el entorno virtual activado:
+O, con el entorno virtual activado:
 
 ```bash
 pip install -r requirements.txt
+```
+
+El script recibe dos argumentos, ambos opcionales y en este orden:
+
+| Argumento | Qué es | Si no lo pasás |
+| --- | --- | --- |
+| `entrada` | Carpeta con las imágenes originales | `imagenes` |
+| `salida` | Carpeta donde quedan los JPEG | `convertidas` |
+
+Solo procesa `.jpg`, `.jpeg`, `.png` y `.webp`. Videos y cualquier otro archivo se saltan. Cada imagen sale como `.jpg` con el mismo nombre, aunque el original fuera PNG o WEBP. La carpeta de salida se crea si no existe.
+
+### Sin parámetros
+
+```bash
 python convertir.py
 ```
+
+Lee `./imagenes` y escribe en `./convertidas`.
+
+Si `imagenes` no existe, termina con error y no crea nada:
+
+```text
+[ERROR] La carpeta de entrada no existe: imagenes
+```
+
+Si la carpeta existe pero no hay imágenes de esos formatos:
+
+```text
+No se encontraron imágenes en: imagenes
+```
+
+Si hay imágenes, imprime una línea por archivo y un resumen al final:
+
+```text
+Procesando 2 imagen(es) desde 'imagenes'...
+
+  [OK] foto.png
+  [OK] vacaciones.webp
+
+--- Resumen ---
+  Total encontradas : 2
+  Convertidas       : 2
+  Errores           : 0
+  Guardadas en      : C:\...\fotosParaFrame\convertidas
+```
+
+En `convertidas` quedan `foto.jpg` y `vacaciones.jpg`.
+
+### Solo la carpeta de entrada
+
+```bash
+python convertir.py D:\whatsapp
+```
+
+Lee `D:\whatsapp` y escribe en `./convertidas`, el valor por defecto de la salida. El resto del comportamiento es el mismo: error si esa carpeta no existe, aviso si no hay imágenes, y resumen si las hay.
+
+### Entrada y salida
+
+```bash
+python convertir.py D:\whatsapp E:\USB
+```
+
+Lee `D:\whatsapp` y escribe en `E:\USB`. Sirve para dejar los JPEG directo en la memoria que va al marco. `E:\USB` se crea si no existe; si `D:\whatsapp` no existe, el script termina con el mismo error de carpeta inexistente.
 
 ## Por qué `progressive=False`
 
